@@ -3,6 +3,7 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from page_object_pattern.pages.search_hotel import SearchHotelPage
 from page_object_pattern.pages.search_results import SearchResultsPage
+import allure
 
 class TestHotelSearch:
     @pytest.fixture()
@@ -13,6 +14,8 @@ class TestHotelSearch:
         yield
         self.driver.quit()
 
+    @allure.title("Search hotel test")
+    @allure.description("Setting city, date range, and number of travellers and compare searching hotel results with expected")
     def test_hotel_search(self, setup):
         self.driver.get("http://www.kurs-selenium.pl/demo/")
         search_hotel_page = SearchHotelPage(self.driver)
