@@ -13,7 +13,7 @@ class TestHotelSearch:
     @allure.title("Search hotel test")
     @allure.description("Setting city, date range, and number of travellers and compare searching hotel results with expected")
     @pytest.mark.parametrize("data", ExcelReader.get_data())
-    def test_hotel_search(self):
+    def test_hotel_search(self, data):
         self.driver.get("http://www.kurs-selenium.pl/demo/")
         search_hotel_page = SearchHotelPage(self.driver)
         search_hotel_page.set_city(data.city)
