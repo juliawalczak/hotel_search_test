@@ -5,14 +5,9 @@ from page_object_pattern.pages.search_hotel import SearchHotelPage
 from page_object_pattern.pages.search_results import SearchResultsPage
 import allure
 
+
+@pytest.mark.usefixtures("setup")
 class TestHotelSearch:
-    @pytest.fixture()
-    def setup(self):
-        self.driver = webdriver.Chrome(ChromeDriverManager().install())
-        self.driver.implicitly_wait(10)
-        self.driver.maximize_window()
-        yield
-        self.driver.quit()
 
     @allure.title("Search hotel test")
     @allure.description("Setting city, date range, and number of travellers and compare searching hotel results with expected")
