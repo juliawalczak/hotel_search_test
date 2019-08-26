@@ -14,7 +14,7 @@ class SearchResultsPage:
 
     @allure.step("Checking results")
     def get_hotel_names(self):
-        hotels = self.driver.find_elements(By.XPATH, self.hotel_names_xpath)
+        hotels = self.driver.find_elements(By.XPATH, SearchResultsLocators.hotel_names_xpath)
         names = [hotel.get_attribute("textContent") for hotel in hotels]
         allure.attach(self.driver.get_screenshot_as_png(), name="Results", attachment_type=AttachmentType.PNG)
         self.logger.info("Availabe hotels are: ")
@@ -23,7 +23,7 @@ class SearchResultsPage:
         return names
 
     def get_hotel_prices(self):
-        prices = self.driver.find_elements(By.XPATH, self.hotel_prices_xpath)
+        prices = self.driver.find_elements(By.XPATH, SearchResultsLocators.hotel_prices_xpath)
         hotel_prices = [price.get_attribute("textContent") for price in prices]
         self.logger.info("Hotel prices are: ")
         for price in hotel_prices:
