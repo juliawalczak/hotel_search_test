@@ -2,6 +2,8 @@ import pytest
 import allure
 from page_object_pattern.pages.search_hotel import SearchHotelPage
 from page_object_pattern.pages.search_results import SearchResultsPage
+from page_object_pattern.utils.read_excel import ExcelReader
+
 
 
 
@@ -10,12 +12,13 @@ class TestHotelSearch:
 
     @allure.title("Search hotel test")
     @allure.description("Setting city, date range, and number of travellers and compare searching hotel results with expected")
+    @pytest.mark.parametrize("data", ExcelReader.get_data())
     def test_hotel_search(self):
         self.driver.get("http://www.kurs-selenium.pl/demo/")
         search_hotel_page = SearchHotelPage(self.driver)
-        search_hotel_page.set_city("Dubai")
-        search_hotel_page.set_date_range("12/09/2019", "22/09/2019")
-        search_hotel_page.set_travellers("2", "2")
+        search_hotel_page.set_city(data.city)
+        search_hotel_page.set_date_range(data.check_in, data.check_out)
+        search_hotel_page.set_travellers(data.adults, data.child)
         search_hotel_page.perform_search()
         search_results = SearchResultsPage(self.driver)
         hotel_names = search_results.get_hotel_names()
