@@ -1,9 +1,8 @@
 import pytest
-from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
+import allure
 from page_object_pattern.pages.search_hotel import SearchHotelPage
 from page_object_pattern.pages.search_results import SearchResultsPage
-import allure
+
 
 
 @pytest.mark.usefixtures("setup")
@@ -11,7 +10,7 @@ class TestHotelSearch:
 
     @allure.title("Search hotel test")
     @allure.description("Setting city, date range, and number of travellers and compare searching hotel results with expected")
-    def test_hotel_search(self, setup):
+    def test_hotel_search(self):
         self.driver.get("http://www.kurs-selenium.pl/demo/")
         search_hotel_page = SearchHotelPage(self.driver)
         search_hotel_page.set_city("Dubai")
